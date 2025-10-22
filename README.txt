@@ -1,5 +1,13 @@
-MN Multibrands - Versão refinada (preto & branco)
+MN Multibrands — Site com páginas de produto (saiba mais)
+Arquivos:
+- index.html
+- product-polo.html
+- product-regata.html
+- product-relogio.html
+- style.css
+- script.js
+- images/ (substitua por fotos reais)
 Instruções:
-- Substitua imagens em /images por fotos de produto reais (prod1.jpg, prod2.jpg, prod3.jpg, logo.png)
-- Abra index.html localmente ou faça deploy em GitHub Pages / Netlify
-- Caso queira alterar o número de WhatsApp, edite script.js (variável phone)
+- Substitua imagens em images/ por fotos reais (prod1.jpg, prod2.jpg, prod3.jpg, logo.png)
+- Faça deploy em Netlify ou GitHub Pages
+- Para alterar número do WhatsApp, edite script.js (variável phone_number)
