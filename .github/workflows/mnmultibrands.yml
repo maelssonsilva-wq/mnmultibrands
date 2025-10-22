@@ -1,4 +1,4 @@
-name: mnmultibrands site CI
+name: mnmultibrands site
 
 on:
   push:
