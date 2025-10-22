@@ -991,6 +991,63 @@
                     <div class="product-category">Clothing</div>
                     <div class="product-price">R$ 199,00</div>
                     <button class="add-to-cart-btn">Add to Cart</button>
+                    <!-- Botão Flutuante do WhatsApp -->
+<a href="https://wa.me/5582982317656?text=Olá!%20Gostaria%20de%20mais%20informações%20sobre%20os%20produtos." 
+   class="whatsapp-float" 
+   target="_blank" 
+   rel="noopener noreferrer"
+   aria-label="Fale conosco no WhatsApp">
+    <i class="ri-whatsapp-line"></i>
+</a>
+
+<style>
+    .whatsapp-float {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 30px;
+        right: 30px;
+        background-color: #25D366;
+        color: #FFF;
+        border-radius: 50px;
+        text-align: center;
+        font-size: 32px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .whatsapp-float:hover {
+        background-color: #128C7E;
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .whatsapp-float i {
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.15); }
+        100% { transform: scale(1); }
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+        .whatsapp-float {
+            width: 50px;
+            height: 50px;
+            font-size: 26px;
+            bottom: 20px;
+            right: 20px;
+        }
+    }
+</style>
                 </div>
             </div>
 
