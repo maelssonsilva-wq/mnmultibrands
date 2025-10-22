@@ -903,6 +903,56 @@
    rel="noopener noreferrer"
    aria-label="Fale conosco no WhatsApp">
     <i class="ri-whatsapp-line"></i>
+</a>
+
+<style>
+    .whatsapp-float {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 30px;
+        right: 30px;
+        background-color: #25D366;
+        color: #FFF;
+        border-radius: 50px;
+        text-align: center;
+        font-size: 32px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .whatsapp-float:hover {
+        background-color: #128C7E;
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .whatsapp-float i {
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.15); }
+        100% { transform: scale(1); }
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+        .whatsapp-float {
+            width: 50px;
+            height: 50px;
+            font-size: 26px;
+            bottom: 20px;
+            right: 20px;
+        }
+    }
+
         </a>
         <a href="https://www.instagram.com/mn_multibrands?igsh=MWx6b2N0cWs4eHlmdg==" 
    class="instagram-float" 
@@ -910,6 +960,65 @@
    rel="noopener noreferrer"
    aria-label="Siga @mn_multibrads no Instagram">
     <i class="ri-instagram-line"></i>
+</a>
+
+<style>
+    .instagram-float {
+        position: fixed;
+        width: 55px;
+        height: 55px;
+        bottom: 30px;
+        left: 30px;
+        background: linear-gradient(135deg, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
+        color: #FFF;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 28px;
+        box-shadow: 0 4px 15px rgba(193, 53, 132, 0.4);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        animation: instagramPulse 2s infinite;
+    }
+
+    .instagram-float:hover {
+        transform: scale(1.12);
+        box-shadow: 0 6px 20px rgba(193, 53, 132, 0.6);
+    }
+
+    @keyframes instagramPulse {
+        0%, 100% { 
+            box-shadow: 0 4px 15px rgba(193, 53, 132, 0.4);
+        }
+        50% { 
+            box-shadow: 0 6px 25px rgba(193, 53, 132, 0.7);
+        }
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+        .instagram-float {
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            bottom: 20px;
+            left: 20px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .instagram-float {
+            width: 48px;
+            height: 48px;
+            font-size: 22px;
+            bottom: 75px; /* Evita sobrepor WhatsApp */
+            left: 15px;
+        }
+    }
+</style>
         </a>
     </div>
 
