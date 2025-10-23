@@ -228,7 +228,7 @@
 
         .product-image {
             width: 100%;
-            height: 500px;
+            height: 280px;
             object-fit: cover;
             transition: transform 0.3s ease;
         }
@@ -247,7 +247,7 @@
             font-size: 20px;
             font-weight: 600;
             color: #333;
-            margin-bottom: 12px;
+            margin: 12px 0;
             letter-spacing: 1px;
             font-family: 'AlibabaSans-Medium', sans-serif;
         }
@@ -260,11 +260,15 @@
             margin-bottom: 15px;
         }
 
-        .add-to-cart-btn {
-            width: 100%;
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .add-to-cart-btn, .ficha-btn {
+            flex: 1;
             padding: 12px;
-            background-color: #333;
-            color: #fff;
             border: none;
             font-size: 13px;
             font-weight: 600;
@@ -273,25 +277,24 @@
             transition: all 0.3s ease;
             text-transform: uppercase;
             font-family: 'AlibabaSans-Medium', sans-serif;
-            opacity: 0;
-            max-height: 0;
-            overflow: hidden;
         }
 
-        .product-card:hover .add-to-cart-btn {
-            opacity: 1;
-            max-height: 50px;
-            padding: 12px;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .add-to-cart-btn {
+            background-color: #333;
+            color: #fff;
         }
 
         .add-to-cart-btn:hover {
             background-color: #555;
+        }
+
+        .ficha-btn {
+            background-color: #555;
+            color: #fff;
+        }
+
+        .ficha-btn:hover {
+            background-color: #777;
         }
 
         /* About */
@@ -483,7 +486,7 @@
         }
 
         .float-btn:hover {
-            transform: scale(1.1);
+            transform:  scale(1.1);
         }
 
         @media (min-width: 769px) {
@@ -648,10 +651,80 @@
             font-size: 16px;
         }
 
-        /* Notificação */
-        @keyframes slideIn {
-            from { transform: translateX(100%); }
-            to { transform: translateX(0); }
+        /* Ficha Técnica Modal */
+        .ficha-modal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2001;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .ficha-modal.active {
+            display: flex;
+        }
+
+        .ficha-content {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            font-family: 'NotoSansHans-Regular', sans-serif;
+        }
+
+        .ficha-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'AlibabaSans-Medium', sans-serif;
+        }
+
+        .ficha-header h3 {
+            font-size: 20px;
+            color: #333;
+        }
+
+        .ficha-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: #999;
+            cursor: pointer;
+        }
+
+        .ficha-body {
+            padding: 20px;
+        }
+
+        .ficha-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .ficha-info p {
+            margin: 10px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .ficha-info strong {
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .ficha-content { max-width: 90%; }
         }
 
         /* Responsive */
@@ -736,148 +809,203 @@
             <button class="filter-btn" data-filter="watches">Watches</button>
             <button class="filter-btn" data-filter="sneakers">Sneakers</button>
             <button class="filter-btn" data-filter="clothing">Clothing</button>
-			<button class="filter-btn" data-filter="Imported">Imported</button>
-			<button class="filter-btn" data-filter="Perfumery">Perfumery</button>
+            <button class="filter-btn" data-filter="perfumery">Perfumery</button>
         </div>                                                               
 
         <div class="products-grid" id="productsGrid">
             <!-- Produto 1 -->
-            <div class="product-card" data-category="watches" data-id="1" data-name="Patek. mostrador branco" data-price="250">
+            <div class="product-card" data-category="watches" data-id="1" data-name="Patek. mostrador branco" data-price="250"
+                 data-ficha='{"marca":"Patek Philippe","categoria":"Relógio","material":"Aço inoxidável, vidro mineral","tamanhos":"Ajustável","cores":"Dourado/Branco","detalhes":"Mostrador branco com marcadores dourados. Pulseira ajustável. Resistente a arranhões."}'>
                 <img src="https://a.lovart.ai/artifacts/user/TQiH9RAWSgwhzNSz.jpeg" alt="Golden Watch" class="product-image">
                 <div class="product-info">
-                    <div class="product-category"><h1>Patek Philippe Gold</h1><p>Luxo e estilo no seu pulso- Relógio dourado Patek Philippe com mostrador branco</p></div>
+                    <div class="product-category"><h1>Patek Philippe Gold</h1><p>Luxo e estilo no seu pulso - Relógio dourado Patek Philippe com mostrador branco</p></div>
                     <div class="product-price">R$ 250,00</div>
-                    <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                        <button class="ficha-btn" onclick="openFicha(this)">Ficha Técnica</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Produto 2 -->
-            <div class="product-card" data-category="watches" data-id="2" data-name="BVLGARI Casino" data-price="320">
+            <div class="product-card" data-category="watches" data-id="2" data-name="BVLGARI Casino" data-price="320"
+                 data-ficha='{"marca":"BVLGARI","categoria":"Relógio","material":"Aço inoxidável, vidro mineral","tamanhos":"Ajustável","cores":"Preto/Colorido","detalhes":"Mostrador inspirado em roleta de cassino. Números coloridos. Resistente a riscos."}'>
                 <img src="https://a.lovart.ai/artifacts/user/FvKCO5mVHkah15Gw.png" alt="BVLGARI Casino Watch" class="product-image">
                 <div class="product-info">
-                    <div class="product-category"><h1>BVLGARI</h1><p>Estilo e luxo em cada detalhe - mostrador inspirado em uma roleta de cassino, com números coloridos que chamam atenção<p><strong>Vidro</strong>: mineral resistente a riscos.</p></p></div>
+                    <div class="product-category"><h1>BVLGARI</h1><p>Estilo e luxo em cada detalhe - mostrador inspirado em uma roleta de cassino</p></div>
                     <div class="product-price">R$ 320,00</div>
-                    <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                        <button class="ficha-btn" onclick="openFicha(this)">Ficha Técnica</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Produto 3 -->
-            <div class="product-card" data-category="watches" data-id="3" data-name="Relógio Turquesa" data-price="250">
+            <div class="product-card" data-category="watches" data-id="3" data-name="Relógio Turquesa" data-price="250"
+                 data-ficha='{"marca":"Patek Philippe","categoria":"Relógio","material":"Aço inoxidável, vidro mineral","tamanhos":"Ajustável","cores":"Dourado/Turquesa","detalhes":"Mostrador turquesa com marcadores dourados. Elegante e sofisticado."}'>
                 <img src="https://a.lovart.ai/artifacts/user/5OIOkrLJIshuBZZd.png" alt="Golden Watch Turquoise" class="product-image">
                 <div class="product-info">
-                    <div class="product-category"><h1>Patek Philippe Gold</h1><p>Elegante. Sofisticado. Único- Relógio dourado Patek Philippe com mostrador Turqueza</p></div>
+                    <div class="product-category"><h1>Patek Philippe Gold</h1><p>Elegante. Sofisticado. Único - Relógio dourado com mostrador Turquesa</p></div>
                     <div class="product-price">R$ 250,00</div>
-                    <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                        <button class="ficha-btn" onclick="openFicha(this)">Ficha Técnica</button>
+                    </div>
                 </div>
             </div>
-			
-			<!-- Produto 4   -->
-            <div class="product-card" data-category="watches" data-id="4" data-name="Relógio Preto" data-price="250">
+
+            <!-- Produto 4 -->
+            <div class="product-card" data-category="watches" data-id="4" data-name="Relógio Preto" data-price="250"
+                 data-ficha='{"marca":"Patek Philippe","categoria":"Relógio","material":"Aço inoxidável, vidro mineral","tamanhos":"Ajustável","cores":"Dourado/Preto","detalhes":"Mostrador preto com marcador de data. Pulseira em aço. Ideal para looks casuais ou sociais."}'>
                 <img src="https://a.lovart.ai/artifacts/user/sfWnS2w8sCMPhBPC.png" alt="Golden Watch Black Dial" class="product-image">
                 <div class="product-info">
-                    <div class="product-category"><h1>Patek Philippe Gold</h1><p>Elegância que impressiona em cada detalhe - Pulseira em aço inoxidável - Mostrador preto com marcador de data - Ideal para looks casuais ou sociais</p></div>
+                    <div class="product-category"><h1>Patek Philippe Gold</h1><p>Elegância que impressiona - Pulseira em aço inoxidável - Mostrador preto</p></div>
                     <div class="product-price">R$ 250,00</div>
-                    <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                        <button class="ficha-btn" onclick="openFicha(this)">Ficha Técnica</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Produto 5 -->
-            <div class="product-card" data-category="sneakers" data-id="5" data-name="Olympikus Preto" data-price="100">
+            <div class="product-card" data-category="sneakers" data-id="5" data-name="Olympikus Preto" data-price="100"
+                 data-ficha='{"marca":"Olympikus","categoria":"Tênis","material":"Tecido respirável, borracha","tamanhos":"38 a 44","cores":"Preto/Verde Neon","detalhes":"Solado leve, cabedal respirável. Ideal para caminhada e uso diário."}'>
                 <img src="https://a.lovart.ai/artifacts/user/fsEFf9eXOUM0hjkk.jpeg" alt="Black Olympikus Sneakers" class="product-image">
                 <div class="product-info">
-                    <div class="product-category"><h1>Olympikus</h1><p>Leve, confortável e com muito estilo - Detalhes em verde neon - Solado super leve - Cabedal respirável</p> </div>
+                    <div class="product-category"><h1>Olympikus</h1><p>Leve, confortável e com muito estilo - Detalhes em verde neon</p></div>
                     <div class="product-price">R$ 100,00</div>
-                    <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                        <button class="ficha-btn" onclick="openFicha(this)">Ficha Técnica</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Produto 6 -->
-            <div class="product-card" data-category="clothing" data-id="6" data-name="Camisa Polo marron" data-price="90">
-                <img src="https://a.lovart.ai/artifacts/user/RTdGxIqVTi7onSlx.jpeg" alt="Black Polo Shirt" class="product-image">
+            <div class="product-card" data-category="sneakers" data-id="6" data-name="Lacoste Marrom" data-price="130"
+                 data-ficha='{"marca":"Lacoste","categoria":"Tênis","material":"Couro sintético, borracha","tamanhos":"39, 40, 41, 43","cores":"Marrom/Branco","detalhes":"Solado branco com detalhe exclusivo. Acabamento premium."}'>
+                <img src="https://a.lovart.ai/artifacts/user/gjOXY5p7eyQvzSlg.jpeg" alt="Brown Lacoste Sneakers" class="product-image">
                 <div class="product-info">
-                    <div class="product-category"><h1>polo canelada</h1><p>Tecido canelado premium - Cor terracota — ideal pra quem curte se destacar com elegância - Caimento perfeito e super confortável</p></div>
-                    <div class="product-price">R$ 90,00</div>
-                    <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    <div class="product-category"><h1>Tenis Lacoste</h1><p>Estilo e conforto no mesmo passo - Solado branco com detalhe exclusivo</p></div>
+                    <div class="product-price">R$ 130,00</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                        <button class="ficha-btn" onclick="openFicha(this)">Ficha Técnica</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Produto 7 -->
-            <div class="product-card" data-category="clothing" data-id="7" data-name="Camisa Regata" data-price="40">
-                <img src="https://a.lovart.ai/artifacts/user/SkRHUS1M81KNWrdi.jpeg" alt="Creme Shirt" class="product-image">
+            <div class="product-card" data-category="sneakers" data-id="7" data-name="Nike Creme" data-price="120"
+                 data-ficha='{"marca":"Nike","categoria":"Tênis","material":"Tecido mesh, borracha","tamanhos":"38 a 44","cores":"Creme/Branco","detalhes":"Solado macio e resistente. Ideal para o dia a dia ou rolê estiloso."}'>
+                <img src="https://a.lovart.ai/artifacts/user/zfA1Fo88vh7xdgv9.png" alt="Nike Cream Sneakers" class="product-image">
                 <div class="product-info">
-                    <div class="product-category"><h1>Regata Americana</h1><p>Tecido canelado premium - Perfeitas para o dia a dia - Cores clássicas: preta, branca, bege e marrom</p></div>
-                    <div class="product-price">R$ 40,00</div>
-                    <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    <div class="product-category"><h1>Tenis Nike Air</h1><p>Estilo e conforto que andam juntos - Solado macio e resistente</p></div>
+                    <div class="product-price">R$ 120,00</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                        <button class="ficha-btn" onclick="openFicha(this)">Ficha Técnica</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Produto 8 -->
-            <div class="product-card" data-category="clothing" data-id="8" data-name="Malha Branca" data-price="60">
-                <img src="https://a.lovart.ai/artifacts/user/UOgbZXG7dRxH2M6i.png" alt="White Waffle Knit" class="product-image">
+            <div class="product-card" data-category="clothing" data-id="8" data-name="Camisa Polo marron" data-price="90"
+                 data-ficha='{"marca":"MN Premium","categoria":"Camisa Polo","material":"Tecido canelado premium","tamanhos":"P, M, G, GG","cores":"Terracota","detalhes":"Caimento perfeito, super confortável. Ideal para destacar com elegância."}'>
+                <img src="https://a.lovart.ai/artifacts/user/RTdGxIqVTi7onSlx.jpeg" alt="marron Polo Shirt" class="product-image">
                 <div class="product-info">
-                    <div class="product-category"><h1>Camisas Peruanas</h1><p>Tecido premium - Toque leve e macio - Confortável, estilosa e com aquele caimento perfeito</p></div>
-                    <div class="product-price">R$ 60,00</div>
-                    <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    <div class="product-category"><h1>polo canelada</h1><p>Tecido canelado premium - Cor terracota</p></div>
+                    <div class="product-price">R$ 90,00</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                        <button class="ficha-btn" onclick="openFicha(this)">Ficha Técnica</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Produto 9 -->
-            <div class="product-card" data-category="sneakers" data-id="9" data-name="Lacoste Marrom" data-price="130">
-                <img src="https://a.lovart.ai/artifacts/user/gjOXY5p7eyQvzSlg.jpeg" alt="Brown Lacoste Sneakers" class="product-image">
+            <div class="product-card" data-category="clothing" data-id="9" data-name="Camisa Regata" data-price="40"
+                 data-ficha='{"marca":"MN Basic","categoria":"Regata","material":"Tecido canelado premium","tamanhos":"P, M, G, GG","cores":"Preto, Branco, Bege, Marrom","detalhes":"Perfeita para o dia a dia. Cores clássicas."}'>
+                <img src="https://a.lovart.ai/artifacts/user/SkRHUS1M81KNWrdi.jpeg" alt="Creme Shirt" class="product-image">
                 <div class="product-info">
-                    <div class="product-category"><h1>Tenis Lacoste</h1><p>Estilo e conforto no mesmo passo - Solado branco com detalhe exclusivo - Acabamento premium - Disponível nos tamanhos: 39, 40, 41 e 43</p></div>
-                    <div class="product-price">R$ 130,00</div>
-                    <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    <div class="product-category"><h1>Regata Americana</h1><p>Tecido canelado premium - Cores clássicas</p></div>
+                    <div class="product-price">R$ 40,00</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                        <button class="ficha-btn" onclick="openFicha(this)">Ficha Técnica</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Produto 10 -->
-            <div class="product-card" data-category="clothing" data-id="10" data-name="Camiseta Preta" data-price="90">
-                <img src="https://a.lovart.ai/artifacts/user/2iEUS6qaePbSxgbX.png" alt="Black T-Shirt" class="product-image">
+            <div class="product-card" data-category="clothing" data-id="10" data-name="Camisa Peruana" data-price="60"
+                 data-ficha='{"marca":"MN Premium","categoria":"Camisa","material":"Tecido peruano premium","tamanhos":"P, M, G, GG","cores":"Branco","detalhes":"Toque leve e macio. Caimento perfeito."}'>
+                <img src="https://a.lovart.ai/artifacts/user/UOgbZXG7dRxH2M6i.png" alt="White Waffle Knit" class="product-image">
                 <div class="product-info">
-                    <div class="product-category"><h1>Camisa texturizado</h1><p>A camiseta que é sinônimo de estilo e elegância - Tecido texturizado e macio - Modelagem perfeita ao corpo - conforto, qualidade e um visual moderno</p></div>
-                    <div class="product-price">R$ 90,00</div>
-                    <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    <div class="product-category"><h1>Camisas Peruanas</h1><p>Tecido premium - Toque leve e macio</p></div>
+                    <div class="product-price">R$ 60,00</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                        <button class="ficha-btn" onclick="openFicha(this)">Ficha Técnica</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Produto 11 -->
-            <div class="product-card" data-category="clothing" data-id="11" data-name="Camiseta  branca" data-price="90">
-                <img src="images/WhatsApp Image 2025-10-22 at 17.00.04 (1).jpeg" alt="Branca T-Shirt" class="product-image">
+            <div class="product-card" data-category="clothing" data-id="11" data-name="Camiseta Preta" data-price="90"
+                 data-ficha='{"marca":"MN Texturizado","categoria":"Camiseta","material":"Tecido texturizado","tamanhos":"P, M, G, GG","cores":"Preto","detalhes":"Modelagem perfeita ao corpo. Conforto e visual moderno."}'>
+                <img src="https://a.lovart.ai/artifacts/user/2iEUS6qaePbSxgbX.png" alt="Black T-Shirt" class="product-image">
                 <div class="product-info">
-                    <div class="product-category"><h1>Camisa texturizado</h1><p>A branca que nunca sai de moda - Estilo, conforto e qualidade em uma só peça - Estilo, conforto e caimento perfeito no corpo</p></div>
+                    <div class="product-category"><h1>Camisa texturizado</h1><p>A camiseta que é sinônimo de estilo e elegância</p></div>
                     <div class="product-price">R$ 90,00</div>
-                    <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                        <button class="ficha-btn" onclick="openFicha(this)">Ficha Técnica</button>
+                    </div>
                 </div>
             </div>
-                    
-                    <!-- Produto 12 -->
-            <div class="product-card" data-category="sneakers" data-id="12" data-name="Nike Creme" data-price="120">
-                <img src="https://a.lovart.ai/artifacts/user/zfA1Fo88vh7xdgv9.png" alt="Nike Cream Sneakers" class="product-image">
+
+            <!-- Produto 12 -->
+            <div class="product-card" data-category="clothing" data-id="12" data-name="Camiseta Branca" data-price="90"
+                 data-ficha='{"marca":"MN Texturizado","categoria":"Camiseta","material":"Tecido texturizado","tamanhos":"P, M, G, GG","cores":"Branco","detalhes":"A branca que nunca sai de moda. Estilo, conforto e caimento perfeito."}'>
+                <img src="images/WhatsApp Image 2025-10-22 at 17.00.04 (1).jpeg" alt="Branca T-Shirt" class="product-image">
                 <div class="product-info">
-                    <div class="product-category"><h1>Tenis Nike Air</h1><p>Estilo e conforto que andam juntos - Solado macio e resistente - Acabamento premium - Ideal para o dia a dia ou aquele rolê estiloso</p></div>
-                    <div class="product-price">R$ 120,00</div>
-                    <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
-					</div>
+                    <div class="product-category"><h1>Camisa texturizado</h1><p>A branca que nunca sai de moda - Estilo, conforto e qualidade</p></div>
+                    <div class="product-price">R$ 90,00</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                        <button class="ficha-btn" onclick="openFicha(this)">Ficha Técnica</button>
+                    </div>
+                </div>
             </div>
-                    
-                    <!-- Produto 13 -->
-            <div class="product-card" data-category="Perfumery" data-id="13" data-name="Perfume Empire" data-price="279,90">
-                <img src="images/WhatsApp Image 2025-10-23 at 09.11.29.jpeg" alt="Perfume Empire Perfumery" class="product-image">
+
+            <!-- Produto 13 -->
+            <div class="product-card" data-category="perfumery" data-id="13" data-name="Perfume Empire" data-price="279.90"
+                 data-ficha='{"marca":"Hinode","categoria":"Perfume Masculino","material":"Eau de Parfum","tamanhos":"100ml","cores":"Azul/Dourado","detalhes":"Fragrância premium com alta fixação. Ideal para eventos formais e presença marcante."}'>
+                <img src="images/WhatsApp Image 2025-10-23 at 09.11.29.jpeg" alt="Perfume Empire" class="product-image">
                 <div class="product-info">
-                    <div class="product-category"><h1>Perfume Empire</h1><p>Ideal para o dia a dia, trabalho ou eventos casuais com presença - Linha Empire – Posicionada como fragrâncias premium masculinas, com identidade visual forte e apelo de status e exclusividade</p></div>
+                    <div class="product-category"><h1>Perfume Empire</h1><p>Linha premium masculina com apelo de status e exclusividade</p></div>
                     <div class="product-price">R$ 279,90</div>
-                    <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
-					</div>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                        <button class="ficha-btn" onclick="openFicha(this)">Ficha Técnica</button>
+                    </div>
+                </div>
             </div>
-                    
-                    <!-- Produto 14 -->
-            <div class="product-card" data-category="Perfumery" data-id="14" data-name="Perfume Latitude" data-price="169,90">
-                <img src="images/WhatsApp Image 2025-10-23 at 09.11.30.jpeg" alt="Perfume Latitude Perfumery" class="product-image">
+
+            <!-- Produto 14 -->
+            <div class="product-card" data-category="perfumery" data-id="14" data-name="Perfume Latitude" data-price="169.90"
+                 data-ficha='{"marca":"Hinode","categoria":"Perfume Masculino","material":"Eau de Parfum","tamanhos":"100ml","cores":"Diversas","detalhes":"7 fragrâncias inspiradas em best-sellers mundiais. Fixação 8-12h."}'>
+                <img src="images/WhatsApp Image 2025-10-23 at 09.11.30.jpeg" alt="Perfume Latitude" class="product-image">
                 <div class="product-info">
-                    <div class="product-category"><h1>Perfume Latitude</h1><p>7 fragrâncias PREMIUM que copiam os BEST-SELLERS MUNDIAIS com 90% de semelhança - 100ml | Eau de Parfum | 8–12h de fixação</p></div>
+                    <div class="product-category"><h1>Perfume Latitude</h1><p>90% similar aos perfumes de luxo, com preço acessível</p></div>
                     <div class="product-price">R$ 169,90</div>
-                    <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                        <button class="ficha-btn" onclick="openFicha(this)">Ficha Técnica</button>
+                    </div>
                 </div>
             </div>
         </div>
