@@ -151,8 +151,8 @@ html<!DOCTYPE html>
             font-weight: 300;
         }
 
-        /* Collection */
-        .collection {
+        /* COLEÇÃO */
+        .COLEÇÃO {
             width: 1920px;
             margin: 0 auto;
             padding: 80px 40px;
@@ -297,15 +297,15 @@ html<!DOCTYPE html>
             background-color: #777;
         }
 
-        /* About */
-        .about {
+        /* SOBRE */
+        .SOBRE {
             background-color: #f5f5f5;
             padding: 80px 40px;
             width: 1920px;
             margin: 0 auto;
         }
 
-        .about-container {
+        .SOBRE-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 60px;
@@ -314,7 +314,7 @@ html<!DOCTYPE html>
             margin: 0 auto;
         }
 
-        .about-content h2 {
+        .SOBRE-content h2 {
             font-size: 38px;
             font-weight: 300;
             letter-spacing: 2px;
@@ -323,7 +323,7 @@ html<!DOCTYPE html>
             font-family: 'NotoSerifCJKsc-Regular', serif;
         }
 
-        .about-content p {
+        .SOBRE-content p {
             font-size: 15px;
             color: #666;
             line-height: 1.8;
@@ -331,22 +331,22 @@ html<!DOCTYPE html>
             letter-spacing: 0.5px;
         }
 
-        .about-image {
+        .SOBRE-image {
             width: 100%;
             height: 400px;
             object-fit: cover;
             border-radius: 8px;
         }
 
-        /* Contact */
-        .contact {
+        /* CONTATO */
+        .CONTATO {
             padding: 80px 40px;
             width: 1920px;
             margin: 0 auto;
             text-align: center;
         }
 
-        .contact h2 {
+        .CONTATO h2 {
             font-size: 38px;
             font-weight: 300;
             letter-spacing: 2px;
@@ -355,7 +355,7 @@ html<!DOCTYPE html>
             font-family: 'NotoSerifCJKsc-Regular', serif;
         }
 
-        .contact-form {
+        .CONTATO-form {
             max-width: 600px;
             margin: 0 auto;
             display: flex;
@@ -729,7 +729,7 @@ html<!DOCTYPE html>
 
         /* Responsive */
         @media (max-width: 1440px) {
-            header, .hero, .collection, .about, .contact, footer {
+            header, .hero, .COLEÇÃO, .SOBRE, .CONTATO, footer {
                 width: 100%;
                 padding-left: 30px;
                 padding-right: 30px;
@@ -741,7 +741,7 @@ html<!DOCTYPE html>
             .products-grid { grid-template-columns: repeat(2, 1fr); gap: 25px; }
             nav a { font-size: 12px; }
             .hero h1 { font-size: 42px; }
-            .about-container { grid-template-columns: 1fr; }
+            .SOBRE-container { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 768px) {
@@ -769,10 +769,10 @@ html<!DOCTYPE html>
             <span class="logo-text">MULTIBRAND</span>
         </div>
         <nav>
-            <a href="#home">Home</a>
-            <a href="#collection">Collection</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
+            <a href="#COMEÇO">COMEÇO</a>
+            <a href="#COLEÇÃO">COLEÇÃO</a>
+            <a href="#SOBRE">SOBRE</a>
+            <a href="#CONTATO">CONTATO</a>
         </nav>
         <div class="cart-icon" id="cartIcon">
             <i class="ri-shopping-cart-line"></i>
@@ -800,8 +800,8 @@ html<!DOCTYPE html>
         <p>DESCUBRA COLEÇÕES EXCLUSIVAS DE MARCA DE CLASSE MUNDIAL</p>
     </section>
 
-    <!-- Collection Section -->
-    <section class="collection" id="collection">
+    <!-- COLEÇÃO Section -->
+    <section class="COLEÇÃO" id="COLEÇÃO">
         <h2 class="section-title">COLEÇÃO EXCLUSIVA</h2>
         
         <div class="filter-buttons">
@@ -1011,10 +1011,10 @@ html<!DOCTYPE html>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="about-container">
-            <div class="about-content">
+    <!-- SOBRE Section -->
+    <section class="SOBRE" id="SOBRE">
+        <div class="SOBRE-container">
+            <div class="SOBRE-content">
                 <h2>SOBRE A MN MULTIBRANDS</h2>
                 <p>MN Multibrands é uma loja de roupa que oferece moda de qualidade com estilo único e marcas premium. Nossa coleção inclui peças trendy, elegantes e confortáveis, perfeitas para quem busca expressar sua personalidade através do vestuário.</p>
                 <p>Com produtos premium de alta qualidade e designs exclusivos, garantimos a melhor experiência de compra para nossos clientes.</p>
@@ -1024,14 +1024,14 @@ html<!DOCTYPE html>
                     <li style="margin: 8px 0;">Atendimento personalizado</li>
                 </ul>
             </div>
-            <img src="images/IMG_4916.PNG" alt="Sobre MN" class="about-image">
+            <img src="images/IMG_4916.PNG" alt="Sobre MN" class="SOBRE-image">
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
+    <!-- CONTATO Section -->
+    <section class="CONTATO" id="CONTATO">
         <h2>FALE CONOSCO</h2>
-        <div class="contact-form">
+        <div class="CONTATO-form">
             <input type="text" placeholder="Seu nome" class="form-input">
             <textarea placeholder="Sua mensagem..." class="form-input form-textarea"></textarea>
             <button class="submit-btn" onclick="window.open('https://wa.me/5582982317656?text=Olá!%20Gostaria%20de%20mais%20informações.', '_blank')">
