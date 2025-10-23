@@ -1106,6 +1106,28 @@
             productCards.forEach(card => card.classList.add('show'));
             updateCartUI();
         });
+
+		// === FICHA TÉCNICA ===
+function openFicha(button) {
+    const card = button.closest('.product-card');
+    const img = card.querySelector('.product-image').src;
+    const ficha = JSON.parse(card.dataset.ficha);
+
+    document.getElementById('fichaImg').src = img;
+    document.getElementById('fichaTitle').textContent = card.dataset.name;
+    document.getElementById('fichaMarca').textContent = ficha.marca;
+    document.getElementById('fichaCategoria').textContent = ficha.categoria;
+    document.getElementById('fichaMaterial').textContent = ficha.material;
+    document.getElementById('fichaTamanhos').textContent = ficha.tamanhos;
+    document.getElementById('fichaCores').textContent = ficha.cores;
+    document.getElementById('fichaDetalhes').textContent = ficha.detalhes;
+
+    document.getElementById('fichaModal').classList.add('active');
+}
+
+document.getElementById('fichaClose').addEventListener('click', () => {
+    document.getElementById('fichaModal').classList.remove('active');
+});
     </script>
 </body>
 </html>
