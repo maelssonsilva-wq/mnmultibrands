@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Projeto 10 Apartamentos - Baixar Imagem</title>
+  <title>Projeto 10 Apartamentos - 15x20m</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -19,7 +19,7 @@
     }
     p.info {
       text-align: center;
-      font-size: 14px;
+	  font-size: 14px;
       color: #7f8c8d;
       margin-bottom: 20px;
     }
@@ -37,22 +37,6 @@
       display: block;
       margin: 0 auto;
       background: #fdfdfd;
-    }
-    .btn-img {
-      display: block;
-      margin: 20px auto;
-      padding: 12px 24px;
-      background: #27ae60;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .btn-img:hover {
-      background: #1e8449;
     }
     .legend {
       margin-top: 20px;
@@ -88,9 +72,7 @@
       Área total: 300m² | 10 apartamentos de 30m² | Circulação central | Paredes: 15cm
     </p>
 
-    <canvas id="planta" width="1000" height="700"></canvas>
-
-    <button class="btn-img" onclick="baixarImagem()">Baixar como Imagem (PNG)</button>
+    <canvas id="planta" width="900" height="600"></canvas>
 
     <div class="legend">
       <div class="legend-item"><div class="color-box" style="background:#e74c3c;"></div> <span>Parede Externa (15cm)</span></div>
@@ -102,20 +84,20 @@
     </div>
   </div>
 
-  <footer>Projeto gerado por IA | Clique no botão para baixar a imagem em alta resolução</footer>
+  <footer>Projeto corrigido e funcional | Escala 1:100</footer>
 
   <script>
     const canvas = document.getElementById('planta');
     const ctx = canvas.getContext('2d');
 
-    // === CONFIGURAÇÕES DE ALTA QUALIDADE ===
-    const escala = 18; // 1m = 18px (ótima resolução)
-    const larguraTerreno = 15 * escala;  // 270px
-    const comprimentoTerreno = 20 * escala; // 360px
-    const parede = 0.15 * escala; // 2.7px
+    // === CONFIGURAÇÕES ===
+    const escala = 15; // 1m = 15px (melhor visualização)
+    const larguraTerreno = 15 * escala;  // 225px
+    const comprimentoTerreno = 20 * escala; // 300px
+    const paredeEspessura = 0.15 * escala; // 2.25px
 
-    const offsetX = (canvas.width - comprimentoTerreno) / 2 + 50;
-    const offsetY = (canvas.height - larguraTerreno) / 2 + 50;
+    const offsetX = (canvas.width - comprimentoTerreno) / 2;
+    const offsetY = (canvas.height - larguraTerreno) / 2;
 
     // Funções de desenho
     function fill(x, y, w, h, color) {
@@ -133,40 +115,44 @@
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // === TERRENO EXTERNO ===
-    stroke(0, 0, comprimentoTerreno, larguraTerreno, parede, '#e74c3c');
+    stroke(0, 0, comprimentoTerreno, larguraTerreno, paredeEspessura, '#e74c3c');
 
     // === CIRCULAÇÃO CENTRAL (cruz) ===
     const corLarg = 1.8 * escala;
     const corX = (comprimentoTerreno - corLarg) / 2;
     const corY = (larguraTerreno - corLarg) / 2;
 
-    fill(corX, 0, corLarg, larguraTerreno, '#3498db');
-    fill(0, corY, comprimentoTerreno, corLarg, '#3498db');
+    fill(corX, 0, corLarg, larguraTerreno, '#3498db'); // vertical
+    fill(0, corY, comprimentoTerreno, corLarg, '#3498db'); // horizontal
 
     // === APARTAMENTOS (5.5m x 5.5m ≈ 30m²) ===
     const aptL = 5.5 * escala;
-    const margin = 0.3 * escala;
+	const margin = 0.3 * escala;
 
+    // Posições dos 10 apartamentos (evitando cruz central)
     const positions = [
-      {x: margin, y: margin},
-      {x: comprimentoTerreno - aptL - margin, y: margin},
-      {x: margin, y: larguraTerreno - aptL - margin},
-      {x: comprimentoTerreno - aptL - margin, y: larguraTerreno - aptL - margin},
-      {x: margin, y: corY - aptL - margin},
-      {x: margin, y: corY + corLarg + margin},
-      {x: comprimentoTerreno - aptL - margin, y: corY - aptL - margin},
-      {x: comprimentoTerreno - aptL - margin, y: corY + corLarg + margin},
-      {x: corX - aptL - margin, y: margin},
-      {x: corX + corLarg + margin, y: margin},
+      {x: margin, y: margin}, // 1
+      {x: comprimentoTerreno - aptL - margin, y: margin}, // 2
+      {x: margin, y: larguraTerreno - aptL - margin}, // 3
+      {x: comprimentoTerreno - aptL - margin, y: larguraTerreno - aptL - margin}, // 4
+
+      {x: margin, y: corY - aptL - margin}, // 5 (esq cima)
+      {x: margin, y: corY + corLarg + margin}, // 6 (esq baixo)
+
+      {x: comprimentoTerreno - aptL - margin, y: corY - aptL - margin}, // 7 (dir cima)
+      {x: comprimentoTerreno - aptL - margin, y: corY + corLarg + margin}, // 8 (dir baixo)
+
+      {x: corX - aptL - margin, y: margin}, // 9 (centro esq cima)
+      {x: corX + corLarg + margin, y: margin}, // 10 (centro dir cima)
     ];
 
-    // === DESENHAR APARTAMENTOS ===
+    // === DESENHAR CADA APARTAMENTO ===
     positions.slice(0, 10).forEach((pos, i) => {
       const x = pos.x;
       const y = pos.y;
 
-      // Contorno do AP
-      stroke(x, y, aptL, aptL, 2, '#000');
+      // Contorno do apartamento
+      stroke(x, y, aptL, aptL, 1.5, '#000');
 
       // Sala/Cozinha (4m x 3.5m)
       fill(x, y, 4 * escala, 3.5 * escala, '#2ecc71');
@@ -177,43 +163,32 @@
       // Banheiro (1.5m x 2m)
       fill(x, y + 3.5 * escala, 1.5 * escala, 2 * escala, '#9b59b6');
 
-      // Porta
-      let portaX, portaY, portaW, portaH;
+      // Porta (na face voltada para o corredor)
+      let portaX, portaY;
       if (i < 4) {
         portaY = (i < 2) ? y - 0.6 * escala : y + aptL;
         portaX = x + 1.5 * escala;
-        portaW = 1 * escala; portaH = 0.6 * escala;
+        fill(portaX, portaY, 1 * escala, 0.6 * escala, '#95a5a6');
       } else if (i < 8) {
         portaX = (i < 6) ? x - 0.6 * escala : x + aptL;
         portaY = y + 1.5 * escala;
-        portaW = 0.6 * escala; portaH = 1 * escala;
+        fill(portaX, portaY, 0.6 * escala, 1 * escala, '#95a5a6');
       } else {
         portaY = y - 0.6 * escala;
         portaX = x + 1.5 * escala;
-        portaW = 1 * escala; portaH = 0.6 * escala;
+        fill(portaX, portaY, 1 * escala, 0.6 * escala, '#95a5a6');
       }
-      fill(portaX, portaY, portaW, portaH, '#95a5a6');
 
       // Número do AP
       ctx.fillStyle = '#000';
-      ctx.font = 'bold 18px Arial';
-      ctx.fillText(`AP ${i+1}`, offsetX + x + 8, offsetY + y + 28);
+      ctx.font = 'bold 14px Arial';
+      ctx.fillText(`AP ${i+1}`, offsetX + x + 5, offsetY + y + 20);
     });
 
-    // === ESCALA E TÍTULO NO CANVAS ===
+    // Legenda no canvas
     ctx.fillStyle = '#2c3e50';
-    ctx.font = 'bold 20px Arial';
-    ctx.fillText('PROJETO: 10 APARTAMENTOS RESIDENCIAIS', offsetX + 10, offsetY - 40);
-    ctx.font = '16px Arial';
-    ctx.fillText('Terreno: 15m x 20m | Cada AP: ~30m² | Escala: 1:100', offsetX + 10, offsetY - 15);
-
-    // === FUNÇÃO PARA BAIXAR IMAGEM ===
-    function baixarImagem() {
-      const link = document.createElement('a');
-      link.download = 'Projeto_10_Apartamentos_15x20m.png';
-      link.href = canvas.toDataURL('image/png', 1.0); // Máxima qualidade
-      link.click();
-    }
+    ctx.font = 'bold 16px Arial';
+    ctx.fillText('Escala: 1m = 15px | 10 apartamentos de ~30m²', offsetX + 10, offsetY - 10);
   </script>
 
 </body>
