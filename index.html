@@ -6,19 +6,32 @@
     <style>
         body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
         .hero { background: linear-gradient(to right, #007BFF, #0056b3); color: white; text-align: center; padding: 100px 20px; }
-        .features { display: flex; justify-content: space-around; padding: 50px 20px; }
-        .feature { width: 30%; text-align: center; }
-        .cta { background: #28a745; color: white; text-align: center; padding: 50px; }
-        button { background: white; color: #007BFF; border: none; padding: 15px 30px; font-size: 18px; border-radius: 5px; cursor: pointer; }
+        .features { display: flex; justify-content: space-around; padding: 50px 20px; flex-wrap: wrap; }
+        .feature { width: 30%; text-align: center; min-width: 250px; margin-bottom: 20px; }
+        .cta { background: #28a745; color: white; text-align: center; padding: 50px 20px; }
+        .btn {
+            display: inline-block; background: white; color: #007BFF; border: none; padding: 15px 30px;
+            font-size: 18px; border-radius: 5px; cursor: pointer; text-decoration: none; margin: 10px;
+            font-weight: bold; transition: 0.3s;
+        }
+        .btn:hover { background: #f0f0f0; transform: scale(1.05); }
+        .btn-whatsapp { background: #25D366; color: white; }
+        .btn-whatsapp:hover { background: #1DA851; }
+        footer { text-align: center; padding: 20px; background: #333; color: white; }
+        @media (max-width: 768px) {
+            .features { flex-direction: column; align-items: center; }
+            .feature { width: 80%; }
+        }
     </style>
 </head>
 <body>
+
     <!-- Hero Section -->
     <section class="hero">
         <h1>InvestSmart</h1>
         <p>Invista com inteligência. Cresça com simplicidade.</p>
         <p>Comece sua jornada financeira com portfólios personalizados por IA. Sem taxas ocultas.</p>
-        <button onclick="alert('Cadastro iniciado!')">Comece a Investir Agora</button>
+        <a href="#" class="btn" onclick="alert('Cadastro iniciado!')">Comece a Investir Agora</a>
     </section>
 
     <!-- Features Section -->
@@ -37,15 +50,28 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
+    <!-- CTA Section com Botão WhatsApp -->
     <section class="cta">
         <h2>Pronto para Crescer?</h2>
-        <p>Abra sua conta gratuita em 2 minutos.</p>
-        <button>Abra Conta Gratuita</button>
+        <p>Abra sua conta gratuita em 2 minutos ou tire suas dúvidas agora!</p>
+        <a href="#" class="btn">Abra Conta Gratuita</a>
+        <a href="https://wa.me/5582982317656?text=Olá!%20Quero%20saber%20mais%20sobre%20o%20InvestSmart." 
+           class="btn btn-whatsapp" target="_blank">
+           📱 Fale pelo WhatsApp
+        </a>
     </section>
 
-    <footer style="text-align: center; padding: 20px; background: #333; color: white;">
-        <p>&copy; 2025 InvestSmart. Regulamentada pela CVM. | Contato: contato@investsmart.com.br</p>
+    <!-- Footer com Contato -->
+    <footer>
+        <p>&copy; 2025 InvestSmart. Regulamentada pela CVM.</p>
+        <p>
+            Contato: 
+            <a href="https://wa.me/5582982317656?text=Olá!%20Quero%20saber%20mais%20sobre%20o%20InvestSmart." 
+               style="color: #25D366; text-decoration: none;" target="_blank">
+               (82) 98231-7656 (WhatsApp)
+            </a>
+        </p>
     </footer>
+
 </body>
 </html>
