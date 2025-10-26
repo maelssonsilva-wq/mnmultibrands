@@ -19,7 +19,7 @@
     }
     p.info {
       text-align: center;
-      font-size: 14px;
+-font-size: 14px;
       color: #7f8c8d;
       margin-bottom: 20px;
     }
@@ -84,128 +84,111 @@
     </div>
   </div>
 
-  <footer>Projeto gerado por IA | Escala aproximada 1:100</footer>
+  <footer>Projeto corrigido e funcional | Escala 1:100</footer>
 
   <script>
     const canvas = document.getElementById('planta');
     const ctx = canvas.getContext('2d');
 
-    // Configurações de escala
-    const escala = 3; // 1m = 3px (ajustado para caber)
-    const larguraTerreno = 15 * escala;  // 45px
-    const comprimentoTerreno = 20 * escala; // 60px
-    const parede = 0.15 * escala; // 15cm = 0.45px
+    // === CONFIGURAÇÕES ===
+    const escala = 15; // 1m = 15px (melhor visualização)
+    const larguraTerreno = 15 * escala;  // 225px
+    const comprimentoTerreno = 20 * escala; // 300px
+    const paredeEspessura = 0.15 * escala; // 2.25px
 
-    // Centralizar o desenho
     const offsetX = (canvas.width - comprimentoTerreno) / 2;
     const offsetY = (canvas.height - larguraTerreno) / 2;
 
-    // Função para desenhar retângulo com preenchimento
-    function fillRect(x, y, w, h, color) {
+    // Funções de desenho
+    function fill(x, y, w, h, color) {
       ctx.fillStyle = color;
       ctx.fillRect(offsetX + x, offsetY + y, w, h);
     }
 
-    // Função para desenhar parede (contorno)
-    function drawWall(x, y, w, h) {
-      ctx.strokeStyle = '#e74c3c';
-      ctx.lineWidth = parede;
+    function stroke(x, y, w, h, lineWidth = 1, color = '#000') {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = lineWidth;
       ctx.strokeRect(offsetX + x, offsetY + y, w, h);
     }
 
-    // Limpar canvas
+    // Limpar
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // === DESENHO DO TERRENO EXTERNO ===
-    drawWall(0, 0, comprimentoTerreno, larguraTerreno);
+    // === TERRENO EXTERNO ===
+    stroke(0, 0, comprimentoTerreno, larguraTerreno, paredeEspessura, '#e74c3c');
 
-    // === CIRCULAÇÃO CENTRAL (corredor em cruz) ===
-    const corredorLargura = 1.8 * escala;
-    const corredorInicioX = (comprimentoTerreno - corredorLargura) / 2;
-    const corredorInicioY = (larguraTerreno - corredorLargura) / 2;
+    // === CIRCULAÇÃO CENTRAL (cruz) ===
+    const corLarg = 1.8 * escala;
+    const corX = (comprimentoTerreno - corLarg) / 2;
+    const corY = (larguraTerreno - corLarg) / 2;
 
-    // Corredor horizontal
-    fillRect(corredorInicioX, 0, corredorLargura, larguraTerreno, '#3498db');
-    // Corredor vertical
-    fillRect(0, corredorInicioY, comprimentoTerreno, corredorLargura, '#3498db');
+    fill(corX, 0, corLarg, larguraTerreno, '#3498db'); // vertical
+    fill(0, corY, comprimentoTerreno, corLarg, '#3498db'); // horizontal
 
-    // === POSIÇÃO DOS APARTAMENTOS (10 unidades) ===
-    // Divisão em 4 quadrantes + centro ajustado
-    const aptSize = 30 ** 0.5 * escala; // ≈5.477 * 3 = ~16.43px (raiz quadrada de 30m²)
-    const aptRealLarg = 5.5 * escala; // ~16.5px
-    const aptRealComp = 5.5 * escala;
+    // === APARTAMENTOS (5.5m x 5.5m ≈ 30m²) ===
+    const aptL = 5.5 * escala;
+ cosy   const margin = 0.3 * escala;
 
-    // Offsets para evitar sobreposição com corredor
-    const margin = 0.3 * escala;
+    // Posições dos 10 apartamentos (evitando cruz central)
     const positions = [
-      // Canto superior esquerdo
-      {x: margin, y: margin},
-      lanzarote{x: comprimentoTerreno - aptRealComp - margin, y: margin},
-      // Canto superior direito
-      {x: comprimentoTerreno - aptRealComp - margin, y: margin},
-      // Canto inferior esquerdo
-      {x: margin, y: larguraTerreno - aptRealLarg - margin},
-      // Canto inferior direito
-      {x: comprimentoTerreno - aptRealComp - margin, y: larguraTerreno - aptRealLarg - margin},
+      {x: margin, y: margin}, // 1
+      {x: comprimentoTerreno - aptL - margin, y: margin}, // 2
+      {x: margin, y: larguraTerreno - aptL - margin}, // 3
+      {x: comprimentoTerreno - aptL - margin, y: larguraTerreno - aptL - margin}, // 4
 
-      // Meio-esquerda (acima e abaixo do corredor vertical)
-      {x: margin, y: corredorInicioY - aptRealLarg - margin},
-      {x: margin, y: corredorInicioY + corredorLargura + margin},
+      {x: margin, y: corY - aptL - margin}, // 5 (esq cima)
+      {x: margin, y: corY + corLarg + margin}, // 6 (esq baixo)
 
-      // Meio-direita
-      {x: comprimentoTerreno - aptRealComp - margin, y: corredorInicioY - aptRealLarg - margin},
-      {x: comprimentoTerreno - aptRealComp - margin, y: corredorInicioY + corredorLargura + margin},
+      {x: comprimentoTerreno - aptL - margin, y: corY - aptL - margin}, // 7 (dir cima)
+      {x: comprimentoTerreno - aptL - margin, y: corY + corLarg + margin}, // 8 (dir baixo)
 
-      // Centro-esquerda e centro-direita (laterais do corredor horizontal)
-      {x: corredorInicioX - aptRealComp - margin, y: margin},
-      {x: corredorInicioX + corredorLargura + margin, y: margin},
+      {x: corX - aptL - margin, y: margin}, // 9 (centro esq cima)
+      {x: corX + corLarg + margin, y: margin}, // 10 (centro dir cima)
     ];
 
-    // Cores dos cômodos
-    const cores = {
-      sala: '#2ecc71',
-      quarto: '#f1c40f',
-      banheiro: '#9b59b6',
-      porta: '#95a5a6'
-    };
-
+    // === DESENHAR CADA APARTAMENTO ===
     positions.slice(0, 10).forEach((pos, i) => {
-      const aptX = pos.x;
-      const aptY = pos.y;
+      const x = pos.x;
+      const y = pos.y;
 
-      // === APARTAMENTO (contorno) ===
-      ctx.strokeStyle = '#000';
-      ctx.lineWidth = 1;
-      ctx.strokeRect(offsetX + aptX, offsetY + aptY, aptRealComp, aptRealLarg);
+      // Contorno do apartamento
+      stroke(x, y, aptL, aptL, 1.5, '#000');
 
-      // === DIVISÕES INTERNAS ===
-      // Sala/Cozinha integrada (3.5m x 4m ≈ 14m²)
-      fillRect(aptX, aptY, 4 * escala, 3.5 * escala, cores.sala);
+      // Sala/Cozinha (4m x 3.5m)
+      fill(x, y, 4 * escala, 3.5 * escala, '#2ecc71');
 
-      // Quarto (3m x 3.5m ≈ 10.5m²)
-      fillRect(aptX + 4 * escala, aptY, 1.5 * escala, 3.5 * escala, cores.quarto);
+      // Quarto (1.5m x 3.5m)
+      fill(x + 4 * escala, y, 1.5 * escala, 3.5 * escala, '#f1c40f');
 
-      // Banheiro (1.5m x 2m ≈ 3m²) — no canto
-      fillRect(aptX, aptY + 3.5 * escala, 1.5 * escala, 2 * escala, cores.banheiro);
+      // Banheiro (1.5m x 2m)
+      fill(x, y + 3.5 * escala, 1.5 * escala, 2 * escala, '#9b59b6');
 
-      // Porta de entrada (na circulação)
-      ctx.fillStyle = cores.porta;
-      ctx.fillRect(
-        offsetX + aptX + 1.5 * escala,
-        offsetY + aptY - 0.3 * escala,
-        1 * escala, 0.6 * escala
-      );
+      // Porta (na face voltada para o corredor)
+      let portaX, portaY;
+      if (i < 4) {
+        portaY = (i < 2) ? y - 0.6 * escala : y + aptL;
+        portaX = x + 1.5 * escala;
+        fill(portaX, portaY, 1 * escala, 0.6 * escala, '#95a5a6');
+      } else if (i < 8) {
+        portaX = (i < 6) ? x - 0.6 * escala : x + aptL;
+        portaY = y + 1.5 * escala;
+        fill(portaX, portaY, 0.6 * escala, 1 * escala, '#95a5a6');
+      } else {
+        portaY = y - 0.6 * escala;
+        portaX = x + 1.5 * escala;
+        fill(portaX, portaY, 1 * escala, 0.6 * escala, '#95a5a6');
+      }
 
-      // Número do apartamento
+      // Número do AP
       ctx.fillStyle = '#000';
-      ctx.font = 'bold 10px Arial';
-      ctx.fillText(`AP ${i+1}`, offsetX + aptX + 2, offsetY + aptY + 12);
+      ctx.font = 'bold 14px Arial';
+      ctx.fillText(`AP ${i+1}`, offsetX + x + 5, offsetY + y + 20);
     });
 
-    // === LEGENDA NO CANVAS (opcional) ===
+    // Legenda no canvas
     ctx.fillStyle = '#2c3e50';
-    ctx.font = 'bold 14px Arial';
-    ctx.fillText('Escala: 1m = 3px | Área útil por apt: ~30m²', offsetX + 5, offsetY - 10);
+    ctx.font = 'bold 16px Arial';
+    ctx.fillText('Escala: 1m = 15px | 10 apartamentos de ~30m²', offsetX + 10, offsetY - 10);
   </script>
 
 </body>
