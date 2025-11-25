@@ -52,15 +52,25 @@
             background: linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.78)),
                         url('https://images.unsplash.com/photo-1604176354207-8bf96d7907dc?w=1920&q=80') center/cover no-repeat;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
         }
 
+        /* Container interno: slide à esquerda, texto à direita */
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            max-width: 1100px;
+            width: 100%;
+            padding: 0 1.5rem;
+        }
+
         .header-content h1 {
-            font-size: 4.8rem;
+            font-size: 4.2rem;
             font-weight: 800;
             margin-bottom: 1rem;
             text-shadow: 0 4px 15px rgba(0,0,0,0.8);
@@ -72,7 +82,31 @@
             text-shadow: 0 2px 10px rgba(0,0,0,0.8);
         }
 
-        /* FOTO DA PIERCER */
+        /* SLIDE À ESQUERDA (mesma proporção visual da foto principal) */
+        .header-slider {
+            width: 340px;
+            max-width: 42%;
+            height: 340px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+            border: 4px solid rgba(255,255,255,0.2);
+            position: relative;
+        }
+        .header-slider .slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+        .header-slider .slide.active {
+            opacity: 1;
+        }
+
+        /* FOTO DA PIERCER (lado direito em desktop) */
         .piercer-photo {
             width: 340px;
             max-width: 42%;
@@ -106,7 +140,6 @@
             text-align: center;
         }
 
-        /* IMAGENS: proporção normal (sem achatar) */
         .service-card img,
         .gallery-item img {
             width: 100%;
@@ -164,8 +197,20 @@
                 padding-top: 90px;
             }
 
+            .header-inner {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .header-slider {
+                width: 260px;
+                height: 260px;
+                max-width: 85%;
+                border-radius: 16px;
+            }
+
             .header-content h1 {
-                font-size: 3.2rem;
+                font-size: 3.0rem;
             }
             .header-content p {
                 font-size: 1.25rem;
@@ -194,7 +239,6 @@
                 padding: 0 0.5rem;
             }
 
-            /* Serviços e galeria em coluna no mobile */
             .services-grid,
             .gallery-grid {
                 display: flex;
@@ -203,7 +247,6 @@
                 padding: 0 0.5rem;
             }
 
-            /* Imagens menores, mas com proporção normal */
             .service-card img,
             .gallery-item img {
                 width: 80%;
@@ -229,6 +272,11 @@
         @media (max-width: 480px) {
             .header-content h1 { font-size: 2.3rem; }
             .header-content p { font-size: 1rem; }
+
+            .header-slider {
+                width: 230px;
+                height: 230px;
+            }
 
             .piercer-photo {
                 width: 230px !important;
@@ -257,16 +305,24 @@
     </nav>
 
     <header id="inicio">
-	<div class="header-inner">
-        <div class="header-slider">
-            <img src="images/Curso semipresencial.jpg" alt="Piercing 1" class="slide active">
-            <img src="images/IMG_5545.PNG" alt="Piercing 2" class="slide">
+        <div class="header-inner">
+            <!-- SLIDE COM AS DUAS IMAGENS DO CURSO -->
+            <div class="header-slider">
+                <img src="images/curso-body-piercing-1.jpg" alt="Curso Body Piercing 1" class="slide active">
+                <img src="images/curso-body-piercing-2.jpg" alt="Curso Body Piercing 2" class="slide">
+            </div>
+
+            <!-- TEXTO PRINCIPAL -->
+            <div class="header-content">
+                <h1>Perfuração</h1>
+                <p>Body Piercing com técnica, carinho e total segurança</p>
+            </div>
         </div>
-        <div class="header-content">
-            <h1>Perfuração</h1>
-            <p>Body Piercing com técnica, carinho e total segurança</p>
-        </div>
-        <img src="images/91de5d6f-ee79-4573-b0e8-9f3ca7370379.jpg" alt="Piercer Furo Humanizado" class="piercer-photo">
+
+        <!-- FOTO PRINCIPAL -->
+        <img src="images/91de5d6f-ee79-4573-b0e8-9f3ca7370379.jpg"
+             alt="Piercer Furo Humanizado"
+             class="piercer-photo">
     </header>
 
     <section class="about" id="sobre">
@@ -332,5 +388,21 @@
         <p>&copy; 2025 Furo Humanizado • Todos os direitos reservados</p>
     </footer>
 
+    <!-- SCRIPT DO SLIDE -->
+    <script>
+        const slides = document.querySelectorAll('.header-slider .slide');
+        let currentSlide = 0;
+
+        function showNextSlide() {
+            if (slides.length === 0) return;
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        if (slides.length > 1) {
+            setInterval(showNextSlide, 3000); // troca a cada 3 segundos
+        }
+    </script>
 </body>
 </html>
