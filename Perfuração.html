@@ -1,14 +1,12 @@
-HTML<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Furo Humanizado | Body Piercing Profissional e Seguro</title>
     <meta name="description" content="Estúdio especializado em body piercing com técnica humanizada, esterilização rigorosa e atendimento acolhedor.">
-   
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-   
+  
     <style>
         :root {
             --primary: #e91e63;
@@ -24,14 +22,14 @@ HTML<!DOCTYPE html>
             line-height: 1.6;
         }
 
-        /* NAVEGAÇÃO */
+        /* NAV */
         nav {
             background: var(--dark);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            padding: 1rem 0;
+            padding: 0.8rem 0;
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         nav .container {
@@ -40,103 +38,196 @@ HTML<!DOCTYPE html>
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
         }
-        nav .logo { font-size: 1.8rem; font-weight: 800; color: var(--primary); }
-        nav ul { list-style: none; display: flex; gap: 2rem; }
-        nav ul a { color: white; text-decoration: none; font-weight: 600; transition: color 0.3s; }
-        nav ul a:hover { color: var(--primary); }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        nav .logo { font-size: 1.6rem; font-weight: 800; color: var(--primary); }
+        nav ul { display: flex; gap: 1.2rem; list-style: none; }
+        nav ul a { color: white; text-decoration: none; font-weight: 600; font-size: 0.95rem; }
 
-        /* HEADER COM A FOTO DA PIERCER */
+        /* HEADER */
         header {
             position: relative;
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), 
+            min-height: 100vh;
+            padding-top: 80px; /* evita que a navbar cubra o conteúdo */
+            background: linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.78)),
                         url('https://images.unsplash.com/photo-1604176354207-8bf96d7907dc?w=1920&q=80') center/cover no-repeat;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
-            overflow: hidden;
         }
-        .header-content {
-            z-index: 2;
-            position: relative;
-        }
-        header h1 {
-            font-size: 5.5rem;
+
+        .header-content h1 {
+            font-size: 4.8rem;
             font-weight: 800;
             margin-bottom: 1rem;
             text-shadow: 0 4px 15px rgba(0,0,0,0.8);
         }
-        header p {
-            font-size: 1.8rem;
-            max-width: 800px;
+        .header-content p {
+            font-size: 1.6rem;
+            max-width: 90%;
             margin: 0 auto;
             text-shadow: 0 2px 10px rgba(0,0,0,0.8);
         }
 
-        /* IMAGEM DA PIERCER - LADO DIREITO */
+        /* FOTO DA PIERCER */
         .piercer-photo {
+            width: 340px;
+            max-width: 42%;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+            border: 4px solid rgba(255,255,255,0.2);
+            margin-top: 3rem;
             position: absolute;
             right: 5%;
             bottom: 10%;
-            width: 340px;              /* tamanho perfeito */
-            max-width: 40%;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
             z-index: 1;
-            border: 4px solid rgba(255,255,255,0.2);
         }
 
-        /* RESPONSIVO */
-        @media (max-width: 1100px) {
-            .piercer-photo { width: 300px; }
-            header h1 { font-size: 4.5rem; }
+        /* SEÇÕES GERAIS */
+        section { padding: 70px 0; }
+        h2 { font-size: 2.4rem; margin-bottom: 2.5rem; }
+        .about p { font-size: 1.1rem; padding: 0 1rem; text-align: center; }
+        .services-grid, .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            padding: 0 1rem;
         }
-        @media (max-width: 900px) {
-            .piercer-photo {
-                width: 260px;
-                right: 3%;
-                bottom: 8%;
-            }
+        .service-card, .gallery-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            text-align: center;
         }
+        .service-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        .service-card h3 {
+            font-size: 1.2rem;
+            margin: 1rem 0 0.5rem;
+        }
+        .service-card p {
+            font-size: 0.95rem;
+            padding: 0 1rem 1.2rem;
+        }
+        .gallery-item img {
+            width: 100%;
+            display: block;
+        }
+
+        .contact { padding: 80px 0; text-align: center; }
+        .contact-info p { margin-bottom: 0.4rem; }
+        .whatsapp-btn {
+            display: inline-block;
+            margin-top: 1.5rem;
+            background: #25d366;
+            color: white;
+            padding: 14px 35px;
+            border-radius: 999px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        footer {
+            background: #111;
+            color: #aaa;
+            text-align: center;
+            padding: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        /* AJUSTES MOBILE - FICA PERFEITO NO CELULAR */
         @media (max-width: 768px) {
-            header h1 { font-size: 3.5rem; }
-            header p { font-size: 1.4rem; }
+            body {
+                font-size: 14px;
+            }
+
+            nav .container {
+                padding: 0 1rem;
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            nav .logo { font-size: 1.5rem; }
+            nav ul { gap: 1rem; }
+
+            header {
+                padding-top: 90px;
+            }
+
+            .header-content h1 {
+                font-size: 3.2rem;
+            }
+            .header-content p {
+                font-size: 1.25rem;
+                max-width: 95%;
+            }
+
             .piercer-photo {
-                position: static;
-                width: 280px;
-                max-width: 80%;
-                margin: 40px auto 0;
-                border-radius: 15px;
+                position: static !important;
+                width: 260px !important;
+                max-width: 85% !important;
+                margin: 2.5rem auto 0 !important;
+                border-radius: 16px;
+            }
+
+            section {
+                padding: 40px 0;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+                text-align: center;
+            }
+
+            .about p {
+                font-size: 0.95rem;
+                padding: 0 0.5rem;
+            }
+
+            .services-grid,
+            .gallery-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                padding: 0 0.5rem;
+            }
+
+            .service-card img {
+                height: 160px;
+                object-fit: cover;
+            }
+
+            .contact {
+                padding: 50px 0;
+            }
+
+            .whatsapp-btn {
+                padding: 10px 25px;
+                font-size: 1rem;
+            }
+
+            footer {
+                padding: 1rem 0;
+                font-size: 0.8rem;
+                text-align: center;
             }
         }
-        @media (max-width: 480px) {
-            header h1 { font-size: 2.8rem; }
-            .piercer-photo { width: 240px; }
-        }
 
-        /* O RESTO DO SITE (mantido igual) */
-        section { padding: 80px 0; }
-        h2 { font-size: 3rem; text-align: center; margin-bottom: 3rem; color: var(--dark); }
-        .about, .services, .gallery, .contact { background: white; }
-        .about p { font-size: 1.2rem; max-width: 800px; margin: 0 auto 2rem; text-align: center; }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-        .service-card { background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s; }
-        .service-card:hover { transform: translateY(-10px); }
-        .service-card img { width: 100%; height: 250px; object-fit: cover; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .gallery-item { border-radius: 15px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-        .gallery-item:hover img { transform: scale(1.1); }
-        .contact { text-align: center; background: var(--dark); color: white; padding: 100px 0; }
-        .contact h2 { color: white; }
-        .whatsapp-btn { display: inline-block; background: #25d366; color: white; padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 1.3rem; margin-top: 2rem; transition: 0.3s; }
-        .whatsapp-btn:hover { background: #1da851; transform: scale(1.05); }
-        footer { background: var(--dark); color: white; text-align: center; padding: 2rem 0; }
+        @media (max-width: 480px) {
+            .header-content h1 { font-size: 2.3rem; }
+            .header-content p { font-size: 1rem; }
+            .piercer-photo { width: 230px !important; }
+        }
     </style>
 </head>
 <body>
@@ -159,10 +250,9 @@ HTML<!DOCTYPE html>
             <h1>Perfuração</h1>
             <p>Body Piercing com técnica, carinho e total segurança</p>
         </div>
-
-        <!-- SUA FOTO AQUI (tamanho reduzido e bem posicionado) -->
         <img src="images/91de5d6f-ee79-4573-b0e8-9f3ca7370379.jpg" alt="Piercer Furo Humanizado" class="piercer-photo">
     </header>
+
     <section class="about" id="sobre">
         <div class="container">
             <h2>Sobre Nós</h2>
