@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -835,24 +836,24 @@
                     <label>Localização</label>
                     <div class="input-wrapper">
                         <i class="ri-map-pin-line"></i>
-                        <input type="text" class="input-field" placeholder="Cidade ou Bairro">
+                        <input id="search-location" type="text" class="input-field" placeholder="Cidade ou Bairro">
                     </div>
                 </div>
                 <div class="input-group">
                     <label>Faixa de Preço</label>
                     <div class="input-wrapper">
                         <i class="ri-money-dollar-circle-line"></i>
-                        <input type="text" class="input-field" placeholder="R$ 1.000 - R$ 5.000">
+                        <input id="search-price" type="text" class="input-field" placeholder="R$ 1.000 - R$ 5.000">
                     </div>
                 </div>
                 <div class="input-group">
                     <label>Quartos</label>
                     <div class="input-wrapper">
                         <i class="ri-hotel-bed-line"></i>
-                        <input type="number" class="input-field" placeholder="2+">
+                        <input id="search-bedrooms" type="number" class="input-field" placeholder="2+">
                     </div>
                 </div>
-                <button class="btn btn-primary" style="height: 48px; padding: 0 32px; font-size: 16px;">
+                <button id="search-button" class="btn btn-primary" style="height: 48px; padding: 0 32px; font-size: 16px;">
                     <i class="ri-search-line"></i> Buscar Imóveis
                 </button>
             </div>
@@ -920,6 +921,9 @@
                     <div style="position: absolute; top: 60%; left: 50%; background: white; color: #1F2937; padding: 6px 12px; border-radius: 8px; font-weight: 600; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); cursor: pointer;">R$ 1.800</div>
                 </div>
             </div>
+            <div id="no-results-message" style="display:none; margin-top: 24px; color: #6B7280; font-size: 16px;">
+                Não temos imóveis disponíveis no momento nessa localidade com os filtros escolhidos.
+            </div>
         </section>
 
         <!-- Featured Listings -->
@@ -934,7 +938,7 @@
 
             <div class="listings-grid">
                 <!-- Card 1 -->
-                <div class="listing-card">
+                <div class="listing-card" data-city="Sao Paulo" data-price="4500" data-bedrooms="3">
                     <div class="listing-image-container">
                         <img src="https://images.unsplash.com/photo-1600596542815-e32c0ee54088?q=80&w=800&auto=format&fit=crop" alt="Imóvel 1" class="listing-image">
                         <div class="listing-tag">Novo</div>
@@ -953,7 +957,7 @@
                 </div>
 
                 <!-- Card 2 -->
-                <div class="listing-card">
+                <div class="listing-card" data-city="Curitiba" data-price="2800" data-bedrooms="1">
                     <div class="listing-image-container">
                         <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800&auto=format&fit=crop" alt="Imóvel 2" class="listing-image">
                         <div class="listing-tag" style="background: #3B82F6;">Oportunidade</div>
@@ -972,7 +976,7 @@
                 </div>
 
                 <!-- Card 3 -->
-                <div class="listing-card">
+                <div class="listing-card" data-city="Rio de Janeiro" data-price="8200" data-bedrooms="4">
                     <div class="listing-image-container">
                         <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=800&auto=format&fit=crop" alt="Imóvel 3" class="listing-image">
                         <div class="like-btn"><i class="ri-heart-line"></i></div>
@@ -1104,3 +1108,76 @@
             <div class="copyright">
                 &copy; 2024 Imóveis Prime. Todos os direitos reservados.
             </div>
+        </footer>
+    </div>
+
+<script>
+    (function () {
+        const searchButton = document.getElementById('search-button');
+        const locationInput = document.getElementById('search-location');
+        const priceInput = document.getElementById('search-price');
+        const bedroomsInput = document.getElementById('search-bedrooms');
+        const cards = Array.from(document.querySelectorAll('.listing-card'));
+        const noResultsMessage = document.getElementById('no-results-message');
+
+        function parsePriceRange(value) {
+            if (!value) return { min: null, max: null };
+            const numbers = (value.match(/\d+/g) || []).map(Number);
+            if (numbers.length === 1) {
+                return { min: 0, max: numbers[0] };
+            }
+            if (numbers.length >= 2) {
+                return { min: numbers[0], max: numbers[1] };
+            }
+            return { min: null, max: null };
+        }
+
+        function applyFilters() {
+            const locationValue = (locationInput.value || '').toLowerCase().trim();
+            const { min, max } = parsePriceRange(priceInput.value);
+            const bedroomsValue = parseInt(bedroomsInput.value, 10);
+
+            let anyVisible = false;
+
+            cards.forEach(card => {
+                const city = (card.getAttribute('data-city') || '').toLowerCase();
+                const price = parseInt(card.getAttribute('data-price') || '0', 10);
+                const bedrooms = parseInt(card.getAttribute('data-bedrooms') || '0', 10);
+
+                let visible = true;
+
+                if (locationValue && !city.includes(locationValue)) {
+                    visible = false;
+                }
+
+                if (visible && (min !== null || max !== null)) {
+                    if (min !== null && price < min) visible = false;
+                    if (max !== null && price > max) visible = false;
+                }
+
+                if (visible && !Number.isNaN(bedroomsValue)) {
+                    if (bedrooms < bedroomsValue) visible = false;
+                }
+
+                card.style.display = visible ? '' : 'none';
+                if (visible) anyVisible = true;
+            });
+
+            if (!anyVisible) {
+                noResultsMessage.style.display = 'block';
+            } else {
+                noResultsMessage.style.display = 'none';
+            }
+        }
+
+        if (searchButton) {
+            searchButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                applyFilters();
+            });
+        }
+    })();
+</script>
+
+</body>
+</html>
